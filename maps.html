@@ -19,6 +19,28 @@ permalink: /maps/
 		</head>
 		<body>
 			<div id="map" class="map"></div>
+			<div id="info">
+				<p>
+				position accuracy :
+				<code id="accuracy">137 [m]</code>
+				</p>
+				<p>
+				altitude :
+				<code id="altitude">0 [m]</code>
+				</p>
+				<p>
+				altitude accuracy :
+				<code id="altitudeAccuracy">0 [m]</code>
+				</p>
+				<p>
+				heading :
+				<code id="heading">NaN [rad]</code>
+				</p>
+				<p>
+				speed :
+				<code id="speed">NaN [m/s]</code>
+				</p>
+			</div>
 			<script type="text/javascript">
 				var view = new ol.View({ 
 					center:ol.proj.fromLonLat([-73.993607, 40.738688]),
@@ -39,6 +61,13 @@ permalink: /maps/
 				projection: view.getProjection(),
 				tracking:true
 						  });
+				geolocation.on('change', function() {
+						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
+						$('#altitude').text(geolocation.getAltitude() + ' [m]');
+						$('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
+						$('#heading').text(geolocation.getHeading() + ' [rad]');
+						$('#speed').text(geolocation.getSpeed() + ' [m/s]');
+						});
 
 				var accuracyFeature = new ol.Feature();
 				accuracyFeature.bindTo('geometry', geolocation, 'accuracyGeometry');
