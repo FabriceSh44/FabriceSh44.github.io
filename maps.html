@@ -40,6 +40,11 @@ permalink: /maps/
 				speed :
 				<code id="speed">NaN [m/s]</code>
 				</p>
+				<p>
+				info :
+				<code id="info"><code>
+				</p>
+
 			</div>
 			<script type="text/javascript">
 				var view = new ol.View({ 
@@ -59,14 +64,19 @@ permalink: /maps/
 
 				var geolocation = new ol.Geolocation({
 				projection: view.getProjection(),
-				tracking:true
-						  });
+				tracking:true });
+
 				geolocation.on('change', function() {
 						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
 						$('#altitude').text(geolocation.getAltitude() + ' [m]');
 						$('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
 						$('#heading').text(geolocation.getHeading() + ' [rad]');
 						$('#speed').text(geolocation.getSpeed() + ' [m/s]');
+						});
+
+				geolocation.on('error', function(error) {
+						$('#info').text(error.message);
+						info.style.display = '';
 						});
 
 				var accuracyFeature = new ol.Feature();
