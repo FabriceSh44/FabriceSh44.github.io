@@ -39,6 +39,16 @@ permalink: /maps/
 				projection: view.getProjection(),
 				tracking:true
 						  });
+				var positionFeature = new ol.Feature();
+				positionFeature.bindTo('geometry', geolocation, 'position')
+				.transform(function() {}, function(coordinates) {
+						return coordinates ? new ol.geom.Point(coordinates) : null;
+						});
+
+				var featuresOverlay = new ol.FeatureOverlay({
+				map: map,
+				features: [positionFeature]
+				});
 		</script>
 	</body>
 </html>
