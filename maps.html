@@ -70,7 +70,7 @@ permalink: /maps/
 
 				var geolocation = new ol.Geolocation({
 				projection: view.getProjection(),
-				tracking:true });
+				});
 
 var track = new ol.dom.Input(document.getElementById('track'));
 track.bindTo('checked', geolocation, 'tracking');
