@@ -34,13 +34,11 @@ permalink: /maps/
 					],
 					view:view
 					});
-				var geolocation = new ol.Geolocation ({
-							projection:view.getProojection(),
-							tracking:true});
-				geolocation.once('change:position', function() {
-						  view.setCenter(geolocation.getPosition());
-						    view.setResolution(2.388657133911758);});
-			</script>
-		</body>
-	</html>
+
+				var geolocation = new ol.Geolocation({
+						  projection: view.getProjection()
+						  });
+		</script>
+	</body>
+</html>
 </div>
