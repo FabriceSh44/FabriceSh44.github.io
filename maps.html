@@ -72,8 +72,8 @@ permalink: /maps/
 				projection: view.getProjection(),
 				});
 
-var track = new ol.dom.Input(document.getElementById('track'));
-track.bindTo('checked', geolocation, 'tracking');
+				var track = new ol.dom.Input(document.getElementById('track'));
+				track.bindTo('checked', geolocation, 'tracking');
 
 				geolocation.on('change', function() {
 						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
