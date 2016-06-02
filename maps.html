@@ -20,6 +20,10 @@ permalink: /maps/
 		<body>
 			<div id="map" class="map"></div>
 			<div id="info">
+				<label class="checkbox" for="track">
+					<input id="track" type="checkbox">
+					track position
+				</label>
 				<p>
 				position accuracy :
 				<code id="accuracy">0 [m]</code>
@@ -67,6 +71,9 @@ permalink: /maps/
 				var geolocation = new ol.Geolocation({
 				projection: view.getProjection(),
 				tracking:true });
+
+var track = new ol.dom.Input(document.getElementById('track'));
+track.bindTo('checked', geolocation, 'tracking');
 
 				geolocation.on('change', function() {
 						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
