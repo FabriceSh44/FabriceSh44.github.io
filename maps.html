@@ -54,11 +54,13 @@ permalink: /maps/
 
 				var map = new ol.Map({
 					target: 'map',
-					layers: [
-					new ol.layer.Tile({
+					layers: [new ol.layer.Tile({
 							source: new ol.source.MapQuest({layer: 'osm'})
-						})
-					],
+						})],
+					controls: ol.control.defaults({
+						attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+						collapsible: false
+						})}),
 					view:view
 					});
 
