@@ -39,15 +39,19 @@ permalink: /maps/
 				projection: view.getProjection(),
 				tracking:true
 						  });
+
+				var accuracyFeature = new ol.Feature();
+				accuracyFeature.bindTo('geometry', geolocation, 'accuracyGeometry');
+
 				var positionFeature = new ol.Feature();
-				positionFeature.bindTo('geometry', geolocation, 'position')
-				.transform(function() {}, function(coordinates) {
+				positionFeature.bindTo('geometry', geolocation, 'position').transform(
+						function() {}, function(coordinates) {
 						return coordinates ? new ol.geom.Point(coordinates) : null;
 						});
 
 				var featuresOverlay = new ol.FeatureOverlay({
 				map: map,
-				features: [positionFeature]
+				features: [accuracyFeature,positionFeature]
 				});
 		</script>
 	</body>
