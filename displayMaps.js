@@ -22,18 +22,7 @@ var geolocation = new ol.Geolocation({
 	projection: view.getProjection()
 });
 
-geolocation.on('change', function() {
-	$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
-	$('#altitude').text(geolocation.getAltitude() + ' [m]');
-	$('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
-	$('#heading').text(geolocation.getHeading() + ' [rad]');
-	$('#speed').text(geolocation.getSpeed() + ' [m/s]');
-});
-
-geolocation.on('error', function(error) {
-	$('#info').text(error.message);
-	info.style.display = '';
-});
+geolocation.setTracking(true);
 
 var accuracyFeature = new ol.Feature();
 geolocation.on('change:accuracyGeometry', function() {
@@ -54,9 +43,6 @@ positionFeature.setStyle(new ol.style.Style({
 	       })
 }));
 
-el('track').addEventListener('change', function() {
-	geolocation.setTracking(this.checked);
-});
 geolocation.on('change:position', function() {
 	var coordinates = geolocation.getPosition();
 	positionFeature.setGeometry(coordinates ?
