@@ -4,125 +4,109 @@ title: Maps
 permalink: /maps/
 ---
 <div class="home">
-	<!DOCTYPE html>
-	<html lang="en">
-		<head>
-			<link rel="stylesheet" href="http://openlayers.org/en/v3.16.0/css/ol.css" type="text/css">
-			<style>
-				.map {
-					height: 600px;
-					width: 100%;
-				}
-			</style>
-			<script src="http://openlayers.org/en/v3.16.0/build/ol.js" type="text/javascript"></script>
-			<title>Milonga maps</title>
-		</head>
-		<body>
-			    <label for="track">
-				  track position
-				<input id="track" type="checkbox"/>
-			    </label>
-			<div id="map" class="map"></div>
-			<div id="info">
-				<p>
-				position accuracy :
-				<code id="accuracy">0 [m]</code>
-				</p>
-				<p>
-				altitude :
-				<code id="altitude">0 [m]</code>
-				</p>
-				<p>
-				altitude accuracy :
-				<code id="altitudeAccuracy">0 [m]</code>
-				</p>
-				<p>
-				heading :
-				<code id="heading">NaN [rad]</code>
-				</p>
-				<p>
-				speed :
-				<code id="speed">NaN [m/s]</code>
-				</p>
-				<p>
-				info :
-				<code id="info"><code>
+	<label for="track">
+		track position
+		<input id="track" type="checkbox"/>
+	</label>
+	<div id="map" class="map"></div>
+	<div id="info">
+		<p>
+		position accuracy :
+		<code id="accuracy">0 [m]</code>
+		</p>
+		<p>
+		altitude :
+		<code id="altitude">0 [m]</code>
+		</p>
+		<p>
+		altitude accuracy :
+		<code id="altitudeAccuracy">0 [m]</code>
+		</p>
+		<p>
+		heading :
+		<code id="heading">NaN [rad]</code>
+		</p>
+		<p>
+		speed :
+		<code id="speed">NaN [m/s]</code>
+		</p>
+		<p>
+		info :
+		<code id="info"><code>
 				</p>
 
 			</div>
 			<script type="text/javascript">
 				var view = new ol.View({ 
-					center:ol.proj.fromLonLat([-73.993607, 40.738688]),
-					zoom: 12
-					});
+center:ol.proj.fromLonLat([-73.993607, 40.738688]),
+zoom: 12
+});
 
-				var map = new ol.Map({
-					target: 'map',
-					layers: [new ol.layer.Tile({
-							source: new ol.source.MapQuest({layer: 'osm'})
-						})],
-					controls: ol.control.defaults({
-						attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-						collapsible: false
-						})}),
-					view:view
-					});
-		 function el(id) {
-			 return document.getElementById(id);
-		       }
+var map = new ol.Map({
+target: 'map',
+layers: [new ol.layer.Tile({
+source: new ol.source.MapQuest({layer: 'osm'})
+})],
+controls: ol.control.defaults({
+attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+collapsible: false
+})}),
+view:view
+});
+function el(id) {
+	return document.getElementById(id);
+}
 
-				var geolocation = new ol.Geolocation({
-				projection: view.getProjection()
-				});
+var geolocation = new ol.Geolocation({
+projection: view.getProjection()
+});
 
-				geolocation.on('change', function() {
-						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
-						$('#altitude').text(geolocation.getAltitude() + ' [m]');
-						$('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
-						$('#heading').text(geolocation.getHeading() + ' [rad]');
-						$('#speed').text(geolocation.getSpeed() + ' [m/s]');
-						});
+geolocation.on('change', function() {
+		$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
+		$('#altitude').text(geolocation.getAltitude() + ' [m]');
+		$('#altitudeAccuracy').text(geolocation.getAltitudeAccuracy() + ' [m]');
+		$('#heading').text(geolocation.getHeading() + ' [rad]');
+		$('#speed').text(geolocation.getSpeed() + ' [m/s]');
+		});
 
-				geolocation.on('error', function(error) {
-						$('#info').text(error.message);
-						info.style.display = '';
-						});
+geolocation.on('error', function(error) {
+		$('#info').text(error.message);
+		info.style.display = '';
+		});
 
-				var accuracyFeature = new ol.Feature();
-				geolocation.on('change:accuracyGeometry', function() {
-						    accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
-							    });
+var accuracyFeature = new ol.Feature();
+geolocation.on('change:accuracyGeometry', function() {
+		accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+		});
 
-				var positionFeature = new ol.Feature();
-				positionFeature.setStyle(new ol.style.Style({
-						image: new ol.style.Circle({
-						radius: 6,
-						fill: new ol.style.Fill({
-						color: '#3399CC'
-						}),
-						stroke: new ol.style.Stroke({
-						color: '#fff',
-						width: 2
-						})
-					})
-				}));
+var positionFeature = new ol.Feature();
+positionFeature.setStyle(new ol.style.Style({
+image: new ol.style.Circle({
+radius: 6,
+fill: new ol.style.Fill({
+color: '#3399CC'
+}),
+stroke: new ol.style.Stroke({
+color: '#fff',
+width: 2
+})
+})
+}));
 
-			el('track').addEventListener('change', function() {
-		          geolocation.setTracking(this.checked);
-			        });
-			 geolocation.on('change:position', function() {
-		         var coordinates = geolocation.getPosition();
-			 positionFeature.setGeometry(coordinates ?
-					             new ol.geom.Point(coordinates) : null);
-			       });
+el('track').addEventListener('change', function() {
+		geolocation.setTracking(this.checked);
+		});
+geolocation.on('change:position', function() {
+		var coordinates = geolocation.getPosition();
+		positionFeature.setGeometry(coordinates ?
+			new ol.geom.Point(coordinates) : null);
+		});
 
-			      new ol.layer.Vector({
-		              map: map,
-			      source: new ol.source.Vector({
-					features: [accuracyFeature, positionFeature]
-						})
-			    });
-		</script>
-	</body>
-</html>
+new ol.layer.Vector({
+map: map,
+source: new ol.source.Vector({
+features: [accuracyFeature, positionFeature]
+})
+});
+</script>
 </div>
