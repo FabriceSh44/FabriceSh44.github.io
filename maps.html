@@ -101,11 +101,18 @@ permalink: /maps/
 					})
 				}));
 
-				var featuresOverlay = new ol.FeatureOverlay({
-				map: map,
-				features: [accuracyFeature,positionFeature]
-				});
-				geolocation.changed();
+			 geolocation.on('change:position', function() {
+		         var coordinates = geolocation.getPosition();
+			 positionFeature.setGeometry(coordinates ?
+					             new ol.geom.Point(coordinates) : null);
+			       });
+
+			      new ol.layer.Vector({
+		              map: map,
+			      source: new ol.source.Vector({
+					features: [accuracyFeature, positionFeature]
+						})
+			    });
 		</script>
 	</body>
 </html>
