@@ -74,6 +74,7 @@ permalink: /maps/
 
 				var track = new ol.dom.Input(document.getElementById('track'));
 				track.bindTo('checked', geolocation, 'tracking');
+				console.log("we've been here");
 
 				geolocation.on('change', function() {
 						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
