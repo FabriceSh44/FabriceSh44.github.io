@@ -83,13 +83,23 @@ permalink: /maps/
 						});
 
 				var accuracyFeature = new ol.Feature();
-				accuracyFeature.bindTo('geometry', geolocation, 'accuracyGeometry');
+				geolocation.on('change:accuracyGeometry', function() {
+						    accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
+							    });
 
 				var positionFeature = new ol.Feature();
-				positionFeature.bindTo('geometry', geolocation, 'position').transform(
-						function() {}, function(coordinates) {
-						return coordinates ? new ol.geom.Point(coordinates) : null;
-						});
+				positionFeature.setStyle(new ol.style.Style({
+						image: new ol.style.Circle({
+						radius: 6,
+						fill: new ol.style.Fill({
+						color: '#3399CC'
+						}),
+						stroke: new ol.style.Stroke({
+						color: '#fff',
+						width: 2
+						})
+					})
+				}));
 
 				var featuresOverlay = new ol.FeatureOverlay({
 				map: map,
