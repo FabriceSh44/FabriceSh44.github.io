@@ -18,6 +18,10 @@ permalink: /maps/
 			<title>Milonga maps</title>
 		</head>
 		<body>
+			    <label for="track">
+				  track position
+				<input id="track" type="checkbox"/>
+			    </label>
 			<div id="map" class="map"></div>
 			<div id="info">
 				<p>
@@ -101,6 +105,9 @@ permalink: /maps/
 					})
 				}));
 
+			el('track').addEventListener('change', function() {
+		          geolocation.setTracking(this.checked);
+			        });
 			 geolocation.on('change:position', function() {
 		         var coordinates = geolocation.getPosition();
 			 positionFeature.setGeometry(coordinates ?
