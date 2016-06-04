@@ -52,7 +52,6 @@ permalink: /maps/
 					zoom: 12
 					});
 
-				console.log("view");
 				var map = new ol.Map({
 					target: 'map',
 					layers: [new ol.layer.Tile({
@@ -65,14 +64,10 @@ permalink: /maps/
 					view:view
 					});
 
-				console.log("map");
 				var geolocation = new ol.Geolocation({
 				projection: view.getProjection(),
+				tracked:true
 				});
-
-				var track = new ol.dom.Input(document.getElementById('track'));
-				track.bindTo('checked', geolocation, 'tracking');
-				console.log("tack");
 
 				geolocation.on('change', function() {
 						$('#accuracy').text(geolocation.getAccuracy() + ' [m]');
