@@ -24,6 +24,7 @@ var geolocation = new ol.Geolocation({
 
 geolocation.setTracking(true);
 
+
 var accuracyFeature = new ol.Feature();
 geolocation.on('change:accuracyGeometry', function() {
 	accuracyFeature.setGeometry(geolocation.getAccuracyGeometry());
@@ -43,11 +44,15 @@ positionFeature.setStyle(new ol.style.Style({
 	       })
 }));
 
+
+geolocation.once('change:position',function(){
+	view.setCenter(geolocation.getPosition());
+});
+
 geolocation.on('change:position', function() {
 	var coordinates = geolocation.getPosition();
 	positionFeature.setGeometry(coordinates ?
 		new ol.geom.Point(coordinates) : null);
-	view.setCenter(coordinates);
 });
 
 new ol.layer.Vector({
