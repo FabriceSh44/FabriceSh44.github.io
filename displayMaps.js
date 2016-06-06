@@ -1,6 +1,6 @@
 var view = new ol.View({ 
 	center:ol.proj.fromLonLat([-73.993607, 40.738688]),
-    zoom: 12
+	zoom: 12
 });
 
 var map = new ol.Map({
@@ -9,9 +9,9 @@ var map = new ol.Map({
 	    source: new ol.source.MapQuest({layer: 'osm'})
     })],
     controls: ol.control.defaults({
-		      attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
-												collapsible: false
-											})}),
+		      attributionOptions:  ({
+						   collapsible: false
+					   })}),
     view:view
 });
 function el(id) {
@@ -47,6 +47,7 @@ geolocation.on('change:position', function() {
 	var coordinates = geolocation.getPosition();
 	positionFeature.setGeometry(coordinates ?
 		new ol.geom.Point(coordinates) : null);
+	view.setCenter(coordinates);
 });
 
 new ol.layer.Vector({
