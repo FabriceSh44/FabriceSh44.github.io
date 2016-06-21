@@ -3,6 +3,7 @@ layout: post
 title:  "Pier 45"
 location: "Pier 45 end of christopher street"
 date:   2016-06-15 20:01:24 -0400
+event_date:   2016-08-20 20:01:24 -0400
 categories: milonga
 ---
 
