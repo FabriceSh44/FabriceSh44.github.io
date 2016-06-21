@@ -1,8 +1,9 @@
 ---
 layout: post
-title:  "Work in progress"
-date:   2016-05-29 20:01:24 -0400
-categories: jekyll update
+title:  "Pier 45"
+location: "Pier 45 end of christopher street"
+date:   2016-06-15 20:01:24 -0400
+categories: milonga
 ---
 
-I'm currently experimenting this website solution
+Description of the milonga
